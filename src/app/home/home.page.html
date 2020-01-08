@@ -18,10 +18,10 @@
     <div>
         <ion-grid>
             <ion-row>
-                <ion-col size="6">
+                <ion-col size="6" *ngFor="let comic of availableComics;">
                     <div class="ion-text-center">
                         <ion-card>
-                            <img src="http://i.annihil.us/u/prod/marvel/i/mg/f/20/4bc63a47b8dcb.jpg">
+                            <img [src]="createLink(comic.thumbnail.path, comic.thumbnail.extension)">
                             <ion-row>
                                 <ion-col>
                                     <ion-button size="small">
@@ -36,51 +36,7 @@
                             </ion-row>
                         </ion-card>
                         <ion-text color="dark">
-                            <p style="font-weight: 700;">Official Handbook of the Marvel Universe (2004) #13 (TEAMS)</p>
-                        </ion-text>
-                    </div>
-                </ion-col>
-                <ion-col size="6">
-                    <div class="ion-text-center">
-                        <ion-card>
-                            <img src="http://i.annihil.us/u/prod/marvel/i/mg/4/20/4bc697c680890.jpg">
-                            <ion-row>
-                                <ion-col>
-                                    <ion-button size="small">
-                                        <ion-icon name="thumbs-up"></ion-icon>
-                                    </ion-button>
-                                </ion-col>
-                                <ion-col>
-                                    <ion-button size="small">
-                                        <ion-icon name="thumbs-down"></ion-icon>
-                                    </ion-button>
-                                </ion-col>
-                            </ion-row>
-                        </ion-card>
-                        <ion-text color="dark">
-                            <p style="font-weight: 700;">Ant-Man (2003) #4</p>
-                        </ion-text>
-                    </div>
-                </ion-col>
-                <ion-col size="6">
-                    <div class="ion-text-center">
-                        <ion-card>
-                            <img src="http://i.annihil.us/u/prod/marvel/i/mg/f/c0/4bc66d78f1bee.jpg">
-                            <ion-row>
-                                <ion-col>
-                                    <ion-button size="small">
-                                        <ion-icon name="thumbs-up"></ion-icon>
-                                    </ion-button>
-                                </ion-col>
-                                <ion-col>
-                                    <ion-button size="small">
-                                        <ion-icon name="thumbs-down"></ion-icon>
-                                    </ion-button>
-                                </ion-col>
-                            </ion-row>
-                        </ion-card>
-                        <ion-text color="dark">
-                            <p style="font-weight: 700;">Sentry, the (Trade Paperback)</p>
+                            <p style="font-weight: 700;">{{ comic.title }}</p>
                         </ion-text>
                     </div>
                 </ion-col>
@@ -89,15 +45,12 @@
 
         <ion-row class="ion-justify-content-center">
             <ion-col size="6">
-                <ion-segment>
-                    <ion-segment-button value="1">
+                <ion-segment (ionChange)="loadMoreComics($event)">
+                    <ion-segment-button value="1" checked>
                         <ion-label>1</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="2">
-                        <ion-label>2</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="3">
-                        <ion-label>3</ion-label>
+                    <ion-segment-button *ngFor="let number of counter(); let range = index" [value]="range+2">
+                        <ion-label>{{ range+2 }}</ion-label>
                     </ion-segment-button>
                 </ion-segment>
             </ion-col>
