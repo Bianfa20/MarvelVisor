@@ -9,7 +9,7 @@ import { IonContent } from '@ionic/angular';
 })
 export class HomePage {
 
-  @ViewChild(IonContent) content: IonContent;
+  @ViewChild(IonContent, {static: true}) content: IonContent;
 
   availableComics: Array<JSON>;
   interval: number;
@@ -33,8 +33,8 @@ export class HomePage {
 
   countIntervals(nComics){
     var interval = nComics / 6;
-    if(parseInt(interval) < interval) {
-      var interval = parseInt(interval) + 1;
+    if(parseInt(interval.toString()) < interval) {
+      var interval = parseInt(interval.toString()) + 1;
     }
     return interval;
   }
