@@ -18,7 +18,6 @@ export class HomePage {
 
     this.availableComics = this.comicsService.loadComics(1);
     this.interval = this.countIntervals(this.comicsService.getnComics());
-    console.log(this.interval)
 
   }
 
