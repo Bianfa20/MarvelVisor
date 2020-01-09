@@ -6,6 +6,16 @@ export const environment = {
   production: false
 };
 
+export const firebaseConfig = {
+  apiKey: "AIzaSyDiPPV5h0EwoXPO8yf9Zngdjxnxv8U4K_k",
+  authDomain: "marvelvisor.firebaseapp.com",
+  databaseURL: "https://marvelvisor.firebaseio.com",
+  projectId: "marvelvisor",
+  storageBucket: "marvelvisor.appspot.com",
+  messagingSenderId: "870418845580",
+  appId: "1:870418845580:web:5d66769d1d367fb4c1d0a9"
+};
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

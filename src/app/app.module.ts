@@ -7,14 +7,21 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+//Firebase
+import { firebaseConfig } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 //Providers
 import { ComicsService } from './providers/comics/comics.service';
+import { AuthService } from './providers/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule],
   providers: [
+    AuthService,
     ComicsService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
