@@ -11,19 +11,19 @@
   <ion-list>    
 
     <ion-item>
-      <ion-label position="floating">Username</ion-label>
+      <ion-label position="floating">Usuario</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
   
     <ion-item>
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">Contraseña</ion-label>
       <ion-input type="password"></ion-input>
     </ion-item>
   
   </ion-list>
 
   <div class="ion-padding ion-text-center">
-    <ion-button color="medium" expand="block">Iniciar sesion</ion-button>
+    <ion-button color="medium" expand="block" (click)="login()">Iniciar sesion</ion-button>
     <ion-text>
       <h6>O bien</h6>
     </ion-text>
