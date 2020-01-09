@@ -1,0 +1,14 @@
+ion-content {
+    ion-img, ion-list {
+        margin: 0 auto;
+    }
+    ion-img {
+        width: 70%;        
+        margin-top: 28%;
+    }
+    ion-list {
+        width: 90%;
+        margin-top: 20px;
+        border-radius: 3px;
+    }    
+}
