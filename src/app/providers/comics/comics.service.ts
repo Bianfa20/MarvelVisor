@@ -3201,12 +3201,16 @@ export class ComicsService {
       }
     }
 
+    this.comicsData['data']['results'].forEach(function(comic){
+      comic.like = 0;
+    });
+
   }
 
   loadComics(range){
     
     var lowerRange = 6*(range-1);
-    var upperRange = lowerRange + 6;
+    var upperRange = lowerRange + 6;    
 
     return this.comicsData['data']['results'].filter(comic => comic['issueNumber'] > 0).slice(lowerRange, upperRange);
 

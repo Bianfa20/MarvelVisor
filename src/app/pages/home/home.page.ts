@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComicsService } from '../providers/comics/comics.service';
+import { ComicsService } from '../../providers/comics/comics.service';
 import { IonContent } from '@ionic/angular';
 
 @Component({
@@ -40,6 +40,18 @@ export class HomePage {
 
   counter(){
     return Array(this.interval - 1);
+  }
+
+  like(comic){
+    if(typeof comic == 'object'){
+      comic.like == 0 ? comic.like = 1 : comic.like = 0;
+    }    
+  }
+
+  dislike(comic){
+    if(typeof comic == 'object'){
+      comic.like == 0 ? comic.like = 2 : comic.like = 0;
+    }    
   }
 
 }
