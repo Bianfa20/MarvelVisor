@@ -35,16 +35,16 @@ export class LogupPage implements OnInit {
   }
 
   async takePicture() {
-    const image = await Plugins.Camera.getPhoto({
+    /* const image = await Plugins.Camera.getPhoto({
       quality: 100,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera
     });
 
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl)); */
 
-    console.log(this.photo);
+    this.upState();
 
   }
 

@@ -83,7 +83,14 @@
   </div>
 
   <div *ngIf="stateOne == 2">
-    hola
+
+    <ion-img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAM1BMVEXk5ueutLfn6eqrsbSvtbjJzc/j5ebg4uPX2tuzuby3vL/T1tjAxcfN0NK6v8G0ury/w8aU9VP1AAAE2klEQVR4nO2d3ZqjIAxANYL/2r7/0y7o2HY6dquQlITmXOzFfnPh+QIJIKZFoSiKoiiKoiiKoiiKoiiKoiiKoiiKoiiKoiiKoihfDEDqJ6ACAOqmHSbH0LY15GXq5AY7m+qBsrdDk4slNLb3Tk+4/7rYDCQBhv6v3d2ymwrRjlDY8qXeJjnWYh2d3+vw5eAIgzngtziWk0BFqOeDfotj10hzhOGE3+IoLIwwnhR0inPqhz5Ff1pwGampH/swjTnvt9AKGalNoJ8LowzFJmCEilIMj6AUxdA5uME93UAfKVia1Ar/J6AOPlPNnMfp6ZXMrqJlrBiTRh8U29QeL4mfhCsd1yDChBJCxuO0xvHzijxLBkIevcEzn+KkmRWWyQaueIJl2TMMImYIWQYRcxZ6GM5EXEF+6RStFt4MR2ZBhA5X0JFa6QncPOOphtROvwCLbljyGqZwQRcsS1aG+IOUW0nE2Pn+MeS0w8Au9yucij7JNOQ1ESlCyGpZQ5FoeFVEikTDKtVQ1HsPn5oPI4kgo2QKM40hn1NFrHPSZwwfQ/yt00pqsRsQ+0btBVVqsRtqqIYCDIkyDSPD/KtF/hU//1Vb9ivv/HdPX7ADzv8Ug6gg8hmkRMmUTyotvuBE+AtO9SmOhCtOIfyCt2sUb0hZDdJveMud/02Fos79tgl60Wd47Sv7W1/IN/f4bO8fyP72JerLfIaz0IOXTvkl0hW8m+zsauEG1rkp4w+Dsv+i5Au+CnJFMV6RaR7diN8Kmzq1wxtiP5zhWigeiMs2Er6Shey/dC6gDRccJAj6KGYdwYW6CxmpRlJ/k/w7f5xfhfNeyewBzZn+JgI78BTLIvVoFyV5AVzJvhNW4ZtFvXV0fhIH6B0opu6/Hems3PhtADT2stNV0OkZ28rvKrjgJIexLx87Q1bdOGXQNPERcJq+uae1vr1nk1l3zzuwkPopKIA9Uj8UCouIH512vM5913XGGPfvpZ/H0f6MVqmqvqtuO9hrtzWd/ZtKF8w8Tm0jrb2we9x2Grtdsb2i6P5sXpruitD0drtddd97miv/AgIQZPegacahZmvpgjeacLu75cwylC56Yxmvt0n2E7Plqlt6IkTvt+TMZ83qwjfj6v1IGstiX+W2R0cbIp93rK7JzxcPbHEjJfukjuR+iR0PHsPIdYTpXUN5RMf58zkH2qCD+3BH+9lfGIAa4W32SUXzyfdSx896UR3nT61zoDnTMR/V8TNhhCGN3qJ4/YQgSbOdw4qGunBAc0kpWJL/hgK0if284pVQEf1CfhBVR3anKO0UfIDqhT/GnTUkaC5tQKoquAeJYsjPjtCBr8gqgh5sRXaC2IqMkswdzHuaVD0TIsG7a4tye5sCtE+HaDomIID2XQZVJ694cJbhLLPMBka2YTsJVxCmIt6PVpAQf+ePqkESGtHjlMGW9w2Rn9iQdUTEI+4Ajsem/g1x3/KlfvojxBRFpuvRZyJa80HqZz9GeBBFzEJPcPdBAYl0JbjtGf9auBFYE6m6IRIQurARE8LQ1SnvTcVvLiGGggZp4DAVUgxXgkoi29OZXQJeuYkp9z8EGKK2DCInYCKKWdCshCxrZA3SgIooK9GEpBpJ9d5z/lhRWCo9v4Ny23thnA2hoiiKoiiKoiiKoiiKouDyD1tATtryXMWAAAAAAElFTkSuQmCC" alt=""></ion-img>
+
+    <div class="ion-padding ion-text-center">
+      <ion-button color="danger" (click)="lowerState()">Cancelar</ion-button>
+      <ion-button color="facebook" (click)="lowerState()">Aceptar</ion-button>
+    </div>
+
   </div>
 
 </ion-content>
