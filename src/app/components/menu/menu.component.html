@@ -1,22 +1,22 @@
-<ion-menu side="end" menuId="mainMenu" contentId="mainContent">
+<ion-menu side="end" menuId="mainMenu" contentId="mainContent" *ngIf="authService.user.email != null">
   <ion-header>
     <ion-toolbar color="primary">
       <ion-grid>
         <ion-row class="ion-margin-start">
           <ion-col>
             <ion-avatar>
-              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              <img [src]="authService.user.photoURL">
             </ion-avatar>           
           </ion-col >
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-title class="ion-text-start">Fabian Serna</ion-title>
+            <ion-title class="ion-text-start">{{ authService.user.displayName }}</ion-title>
           </ion-col>
         </ion-row>
         <ion-row class="ion-margin-start">
           <ion-col>
-            <ion-text >bianfa@gmail.com</ion-text>
+            <ion-text>{{ authService.user.email }}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -26,9 +26,13 @@
     <ion-list>
       <ion-item>Menu Item</ion-item>
       <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
+      <ion-item>Menu Item</ion-item>      
     </ion-list>
+    
+    <div class="ion-text-center ion-margin-top">
+      <ion-button shape="round" (click)="logout()">Cerrar sesion</ion-button>
+      <ion-button shape="round" color="danger">Eliminar cuenta</ion-button>
+    </div>
+
   </ion-content>
 </ion-menu>

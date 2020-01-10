@@ -19,10 +19,7 @@ export class LoginPage implements OnInit {
 
   login(){
     this.authService.login(this.email, this.password).then(res=>{
-      console.log(res);
       this.navCtrl.navigateRoot("/home");
-    }).catch(err=>{
-      console.log(err);
     })
     
   }

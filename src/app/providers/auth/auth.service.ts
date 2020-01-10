@@ -6,10 +6,36 @@ import { AngularFireAuth } from "@angular/fire/auth";
 })
 export class AuthService {
 
-  constructor( private fAuth: AngularFireAuth ) { }
+  user: any;
+
+  constructor( private fAuth: AngularFireAuth ) { 
+
+    this.initUser();
+
+  }
+
+  initUser(){
+    this.user = {
+      displayName: null,
+      email: null,
+      photoURL: ''
+    };
+  }
 
   login(email: string, password: string){
-    return this.fAuth.auth.signInWithEmailAndPassword(email, password);
+    return new Promise((resolve, reject)=>{
+      this.fAuth.auth.signInWithEmailAndPassword(email, password).then(res=>{
+        this.user = res.user;
+        resolve(this.user);
+      }).catch(err=>{
+        console.log(err)
+      })
+    })
+  }
+
+  logout(){
+    this.fAuth.auth.signOut();
+    this.initUser();
   }
 
   createUser(){

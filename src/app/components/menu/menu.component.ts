@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
+import { AuthService } from '../../providers/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,8 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor( private authService: AuthService, private navCtrl: NavController, private menuCtrl: MenuController ) { }
 
   ngOnInit() {}
+
+  logout(){
+    this.menuCtrl.toggle();    
+    this.navCtrl.navigateRoot("/login");
+    this.authService.logout();
+  }
 
 }
