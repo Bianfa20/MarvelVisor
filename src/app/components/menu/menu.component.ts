@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {}
 
   logout(){
-    this.menuCtrl.toggle();    
+    this.menuCtrl.enable(false);
     this.navCtrl.navigateRoot("/login");
     this.authService.logout();
   }

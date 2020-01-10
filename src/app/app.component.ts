@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Plugins, StatusBarStyle, SplashScreen } from '@capacitor/core';
-import { AuthService } from './providers/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,7 @@ import { AuthService } from './providers/auth/auth.service';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform,
-    private authService: AuthService
+    private platform: Platform
   ) {
     this.initializeApp();
   }
