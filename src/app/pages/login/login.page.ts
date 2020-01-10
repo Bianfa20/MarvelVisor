@@ -25,4 +25,8 @@ export class LoginPage implements OnInit {
     
   }
 
+  toLogup(){
+    this.navCtrl.navigateForward("/logup");
+  }
+
 }

@@ -11,7 +11,7 @@
   <ion-list>    
 
     <ion-item>
-      <ion-label position="floating">Usuario</ion-label>
+      <ion-label position="floating">Correo electrónico</ion-label>
       <ion-input type="email" [(ngModel)]="email"></ion-input>
     </ion-item>
   
@@ -32,7 +32,7 @@
   </div>
 
   <div class="ion-text-end ion-margin-end">
-    <p id="logup">Registrarse</p>
+    <p id="logup" (click)="toLogup()">Registrarse</p>
   </div>
 
 </ion-content>

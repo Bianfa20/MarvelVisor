@@ -1,0 +1,21 @@
+ion-header {
+    ion-title {
+        margin-right: 13%;
+    }
+}
+
+ion-content {
+    ion-img {
+        margin: 0 auto;
+        width: 70%;        
+        margin-top: 7vh;
+    }
+    ion-list {
+        border-radius: 3px;
+    }
+    ion-card {
+        .centerCard {
+            margin: 0 auto;
+        }
+    }
+}

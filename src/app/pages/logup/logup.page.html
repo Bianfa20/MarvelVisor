@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="backToLogin()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back" fill="clear"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center">Crear Cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+
+  <ion-img src="https://logos-download.com/wp-content/uploads/2018/07/Marvel_logo_red.png"></ion-img>
+
+  <div *ngIf="stateOne">
+    
+    <ion-list class="ion-margin-horizontal ion-margin-top">    
+
+      <ion-item>
+        <ion-label position="floating">Nombre de usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Correo electronico</ion-label>
+        <ion-input type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Confirmar contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="passwordC"></ion-input>
+      </ion-item>
+    
+    </ion-list>
+
+    <div class="ion-padding ion-text-center">
+      <ion-button color="facebook" expand="block" (click)="toggleState()">Continuar</ion-button>
+    </div>
+  </div>
+
+  <div *ngIf="!stateOne">
+
+    <ion-text class="ion-text-center ion-margin-top">
+      <p>¿De donde quieres sacar <br/> la mejor foto para tu perfil?</p>
+    </ion-text>
+
+    <ion-card class="ion-margin-horizontal ion-margin-top">
+      <ion-item>
+        <ion-avatar>
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e5a7fd11672481.560fb948a88f6.png">
+        </ion-avatar>        
+        <ion-card-header>
+          <ion-card-title>Tomar una foto</ion-card-title>
+          <ion-card-subtitle>Una foto de ahora mismo Genial!</ion-card-subtitle>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <ion-card class="ion-margin-horizontal ion-margin-top">
+      <ion-item>
+        <ion-avatar>
+          <img src="https://freeiconshop.com/wp-content/uploads/edd/image-flat.png">
+        </ion-avatar>        
+        <ion-card-header>
+          <ion-card-title>Buscar una foto</ion-card-title>
+          <ion-card-subtitle>Encuentra la mejor foto de tu galeria</ion-card-subtitle>
+        </ion-card-header>
+      </ion-item>
+    </ion-card>
+
+    <div class="ion-padding ion-text-center">
+      <ion-button color="facebook" (click)="toggleState()">Volver</ion-button>
+    </div>
+
+  </div>
+
+</ion-content>
