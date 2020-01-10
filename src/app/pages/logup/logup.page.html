@@ -15,7 +15,7 @@
 
   <ion-img src="https://logos-download.com/wp-content/uploads/2018/07/Marvel_logo_red.png"></ion-img>
 
-  <div *ngIf="stateOne">
+  <div *ngIf="stateOne == 0">
     
     <ion-list class="ion-margin-horizontal ion-margin-top">    
 
@@ -42,17 +42,17 @@
     </ion-list>
 
     <div class="ion-padding ion-text-center">
-      <ion-button color="facebook" expand="block" (click)="toggleState()">Continuar</ion-button>
+      <ion-button color="facebook" expand="block" (click)="upState()">Continuar</ion-button>
     </div>
   </div>
 
-  <div *ngIf="!stateOne">
+  <div *ngIf="stateOne == 1">
 
     <ion-text class="ion-text-center ion-margin-top">
       <p>¿De donde quieres sacar <br/> la mejor foto para tu perfil?</p>
     </ion-text>
 
-    <ion-card class="ion-margin-horizontal ion-margin-top">
+    <ion-card class="ion-margin-horizontal ion-margin-top" (click)="takePicture()">
       <ion-item>
         <ion-avatar>
           <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e5a7fd11672481.560fb948a88f6.png">
@@ -77,9 +77,13 @@
     </ion-card>
 
     <div class="ion-padding ion-text-center">
-      <ion-button color="facebook" (click)="toggleState()">Volver</ion-button>
+      <ion-button color="facebook" (click)="lowerState()">Volver</ion-button>
     </div>
 
+  </div>
+
+  <div *ngIf="stateOne == 2">
+    hola
   </div>
 
 </ion-content>

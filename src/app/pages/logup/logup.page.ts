@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-logup',
@@ -8,11 +10,12 @@ import { NavController } from '@ionic/angular';
 })
 export class LogupPage implements OnInit {
 
-  stateOne: boolean;
+  stateOne: number;
+  photo: SafeResourceUrl;
 
-  constructor( private navCtrl: NavController ) { 
+  constructor( private navCtrl: NavController, private sanitizer: DomSanitizer ) { 
 
-    this.stateOne = true;
+    this.stateOne = 0;
 
   }
 
@@ -23,8 +26,26 @@ export class LogupPage implements OnInit {
     this.navCtrl.navigateBack("/login");
   }
 
-  toggleState(){
-    this.stateOne ? this.stateOne = false : this.stateOne = true;
+  upState(){
+    this.stateOne += 1;
+  }
+
+  lowerState(){
+    this.stateOne -= 1;
+  }
+
+  async takePicture() {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 100,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera
+    });
+
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+
+    console.log(this.photo);
+
   }
 
 }
