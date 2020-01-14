@@ -9,19 +9,22 @@ export class StorageService {
 
   constructor( private afStorage: AngularFireStorage ) { }
 
-  uploadPicture(email, picture){
+  uploadPicture(username, picture){
 
     return new Promise((resolve, reject)=>{
-      var ref = this.afStorage.ref(`profiles/${email}${new Date().valueOf().toString()}`);
-      var task = ref.putString(picture, 'data_url', { contentType: 'image/jpeg' });
 
-      task.percentageChanges();
-  
+      var ref = this.afStorage.ref(`profiles/${username}${new Date().valueOf().toString()}.jpg`);
+      var uploadTask = ref.putString(picture, 'data_url', { contentType: 'image/jpeg' }).then(snapshot=>{
+        resolve(snapshot.ref.getDownloadURL());
+      });
+
+      /* task.percentageChanges();
+
       task.snapshotChanges().pipe(
-        finalize(() => console.log(ref.getDownloadURL()))
-      );
-
-      resolve();
+        finalize(() => {
+          resolve(ref.getDownloadURL())
+        })
+      ).subscribe() */      
 
     });
 

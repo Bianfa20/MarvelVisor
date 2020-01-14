@@ -43,12 +43,12 @@ export class AuthService {
 
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 
-      this.storageService.uploadPicture(email, picture).then(url=>{
+      this.storageService.uploadPicture(username, picture).then(url=>{
         /* res.user.updateProfile({
           displayName: username,
-          photoURL: "https://img.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg?size=338&ext=jpg"
+          photoURL: url
         }); */
-        console.log(url);
+        console.log(url)
       });
       
     }).catch(err=>{
