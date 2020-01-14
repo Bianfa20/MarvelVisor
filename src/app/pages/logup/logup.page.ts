@@ -32,7 +32,7 @@ export class LogupPage implements OnInit {
     this.navCtrl.navigateBack("/login");
   }
 
-  upState(){
+  upperState(){
     this.stateOne += 1;
   }
 
@@ -50,15 +50,13 @@ export class LogupPage implements OnInit {
 
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl)); */
 
-    this.upState();
+    this.upperState();
 
   }
 
   createUser(){
-    if(this.password == this.passwordC){
-      this.authService.createUser(this.userName, this.email, this.password, this.photo);
-    }
-    this.lowerState();
+    this.authService.createUser(this.userName, this.email, this.password, this.photo);
+    this.navCtrl.navigateBack("/login");
   }
 
 }

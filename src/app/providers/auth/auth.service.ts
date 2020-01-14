@@ -44,11 +44,10 @@ export class AuthService {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 
       this.storageService.uploadPicture(username, picture).then(url=>{
-        /* res.user.updateProfile({
+        res.user.updateProfile({
           displayName: username,
-          photoURL: url
-        }); */
-        console.log(url)
+          photoURL: url + ""
+        });
       });
       
     }).catch(err=>{
