@@ -44,14 +44,14 @@ export class AuthService {
     return new Promise((resolve, reject)=>{
       this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 
-        /* this.storageService.uploadPicture(username, picture).then(url=>{ */
+        this.storageService.uploadPicture(username, picture).then(url=>{
           res.user.updateProfile({
             displayName: username,
-            photoURL: /* url + */ ""
+            photoURL: url + ""
           });
-        /* }); */
+        });
 
-        resolve();
+        resolve({code: ""});
         
       }).catch(err=>{
         console.log(err)

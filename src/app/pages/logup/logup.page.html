@@ -59,7 +59,7 @@
       <p>¿De donde quieres sacar <br/> la mejor foto para tu perfil?</p>
     </ion-text>
 
-    <ion-card class="ion-margin-horizontal ion-margin-top" (click)="takePicture()">
+    <ion-card class="ion-margin-horizontal ion-margin-top" (click)="takePicture(1)">
       <ion-item>
         <ion-avatar>
           <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e5a7fd11672481.560fb948a88f6.png">
@@ -71,7 +71,7 @@
       </ion-item>
     </ion-card>
 
-    <ion-card class="ion-margin-horizontal ion-margin-top">
+    <ion-card class="ion-margin-horizontal ion-margin-top" (click)="takePicture(0)">
       <ion-item>
         <ion-avatar>
           <img src="https://freeiconshop.com/wp-content/uploads/edd/image-flat.png">
@@ -91,7 +91,9 @@
 
   <div *ngIf="stateOne == 2">
 
-    <ion-img [src]="photo" alt=""></ion-img>
+    <div class="ion-text-center">
+      <img id="imageTaken" [src]="photo" alt="">
+    </div>
 
     <div class="ion-padding ion-text-center">
       <ion-button color="danger" (click)="lowerState()">Cancelar</ion-button>
@@ -99,5 +101,14 @@
     </div>
 
   </div>
+
+  <div class="saver" *ngIf="loader"></div>
+
+  <ion-card id="loader" *ngIf="loader">
+    <img src="../../../assets/loader.gif" alt="">
+    <ion-card-content class="ion-text-center">
+      <ion-text color="dark">Registrando</ion-text>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

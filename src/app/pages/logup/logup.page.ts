@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { Plugins, CameraResultType, CameraSource, CameraDirection } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../../providers/auth/auth.service';
+const { Toast } = Plugins;
 
 @Component({
   selector: 'app-logup',
@@ -18,12 +19,11 @@ export class LogupPage implements OnInit {
   password: string;
   passwordC: string;
   message: string;
+  loader: boolean;
 
   constructor( private navCtrl: NavController, private sanitizer: DomSanitizer, private authService: AuthService ) { 
-
     this.stateOne = 0;
     this.userName, this.email, this.password, this.passwordC = "";
-
   }
 
   ngOnInit() {
@@ -41,15 +41,21 @@ export class LogupPage implements OnInit {
     this.stateOne -= 1;
   }
 
-  async takePicture() {
-    const image = await Plugins.Camera.getPhoto({
+  async takePicture(flag) {
+
+    this.loader = true;
+
+    var image = await Plugins.Camera.getPhoto({
       quality: 100,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera
+      direction: CameraDirection.Front,
+      source: flag ? CameraSource.Camera : CameraSource.Photos
     });
 
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+
+    this.loader = false;
 
     this.upperState();
 
@@ -61,6 +67,7 @@ export class LogupPage implements OnInit {
         if(this.password == this.passwordC){
           if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.email)){
             this.upperState();
+            this.photo ? this.upperState() : 1;
             this.message = "Datos guardado."
           }else{
             this.message = "Correo invalido."
@@ -77,15 +84,26 @@ export class LogupPage implements OnInit {
   }
 
   createUser() {
+    this.loader = true;
     this.authService.createUser(this.userName, this.email, this.password, this.photo).then(res=>{
-      if(res["code"]!="auth/email-already-in-use"){
+      this.loader = false;
+      if(res["code"]==""){
+        this.showToast("Registrado exitosamente")
         this.navCtrl.navigateBack("/login");
-      }else{
+      }else if(res["code"]=="auth/email-already-in-use"){
         this.stateOne = 0;
         this.message = "Este correo ya esta en uso."
+      }else {
+        this.showToast("No se pudo registrar")
+        this.navCtrl.navigateBack("/login");
       }
-    })
-    
+    })    
+  }
+
+ async showToast(message: string) {
+    await Toast.show({
+      text: message
+    });
   }
 
 }
