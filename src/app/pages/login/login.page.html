@@ -23,7 +23,7 @@
   </ion-list>
 
   <div class="ion-padding ion-text-center">
-    <ion-button color="medium" expand="block" (click)="login()">Iniciar sesion</ion-button>
+    <ion-button color="medium" expand="block" (click)="login()">Iniciar sesión</ion-button>
     <ion-text>
       <h6>O bien</h6>
     </ion-text>
@@ -31,8 +31,23 @@
     <ion-button color="facebook" expand="block">Continuar con Facebook</ion-button>
   </div>
 
+  <ion-card id="warning" style="background: #ccc;" *ngIf="message">
+    <ion-card-content class="ion-text-center">
+      <ion-text color="dark">{{ message }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+
   <div id="logupContent" class="ion-text-end ion-margin-end">
     <a id="logup" (click)="toLogup()">Registrarse</a>
   </div>
+
+  <div class="saver" *ngIf="loguedIn"></div>
+
+  <ion-card id="loader" *ngIf="loguedIn">
+    <img src="../../../assets/loader.gif" alt="">
+    <ion-card-content class="ion-text-center">
+      <ion-text color="dark">Iniciando sesión</ion-text>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

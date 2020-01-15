@@ -12,10 +12,32 @@ ion-content {
         border-radius: 3px;        
     }    
     #logupContent {
-        margin-top: 15%;
+        margin-top: 10%;
     }
     #logup {
         text-decoration: underline;
         color: #fff;
+    }
+    #warning {
+        background: #ccc;
+    }
+    .saver {
+        position: absolute;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        background: #000;
+        opacity: 0.4;
+    }
+    #loader {
+        position: absolute;
+        top: 35%;
+        left: 30%;
+        width: 160px;
+        background: #fff;
+        img {
+            width: 70%;
+            margin: 0 auto;
+        }
     }
 }
