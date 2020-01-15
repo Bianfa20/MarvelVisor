@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ export class ComicsService {
 
   comicsData: any;
 
-  constructor() { 
+  constructor( private http: HttpClient ) { 
 
     this.comicsData = {
       "code": 200,
@@ -3200,6 +3201,12 @@ export class ComicsService {
         ]
       }
     }
+
+    var url = "http://gateway.marvel.com/v1/public/comics?ts=1&apikey=b5dd158dd0e856443db7fb726fbc6bc9&hash=80182fcb24c6426319114b9e34eafed6";
+
+    this.comicsData = this.http.get(url);
+
+    console.log(this.comicsData);
 
     this.comicsData['data']['results'].forEach(function(comic){
       comic.like = 0;

@@ -6,6 +6,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 
 //Firebase
@@ -22,7 +23,7 @@ import { StorageService } from './providers/storage/storage.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ComponentsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
+  imports: [ComponentsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
   providers: [
     AuthService,
     StorageService,
