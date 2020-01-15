@@ -53,7 +53,12 @@ export class LoginPage implements OnInit {
   }
 
   toLogup(){
-    this.navCtrl.navigateForward("/logup");
+    this.navCtrl.navigateRoot("/logup");
+  }
+
+  loginWithGoogle(){
+    this.authService.loginWithGoogle();
+    this.navCtrl.navigateRoot("/home");
   }
 
 }

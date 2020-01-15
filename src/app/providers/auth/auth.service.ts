@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { StorageService } from '../storage/storage.service';
+import { Plugins } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,13 @@ export class AuthService {
       }).catch(err=>{
         resolve(err)
       })
+    })
+  }
+
+  async loginWithGoogle(){
+    let googleUser = await Plugins.GoogleAuth.signIn();
+    this.afAuth.auth.signInWithCredential(googleUser.authentication.idToken).then(ref=>{
+      this.user = ref.user;
     })
   }
 

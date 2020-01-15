@@ -61,7 +61,7 @@ export class LogupPage implements OnInit {
 
   }
 
-  signIn() {
+  saveData() {
     if(this.userName != "" && this.email != "" && this.password != "" && this.passwordC != ""){
       if(this.password.length > 5){
         if(this.password == this.passwordC){
