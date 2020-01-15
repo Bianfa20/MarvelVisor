@@ -42,8 +42,15 @@
     </ion-list>
 
     <div class="ion-padding ion-text-center">
-      <ion-button color="facebook" expand="block" (click)="upperState()">Continuar</ion-button>
+      <ion-button color="facebook" expand="block" (click)="signIn()">Registrarse</ion-button>
     </div>
+
+    <ion-card id="warning" *ngIf="message">
+      <ion-card-content class="ion-text-center">
+        <ion-text color="dark">{{ message }}</ion-text>
+      </ion-card-content>
+    </ion-card>
+
   </div>
 
   <div *ngIf="stateOne == 1">

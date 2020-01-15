@@ -41,17 +41,22 @@ export class AuthService {
 
   createUser(username: string, email: string, password: string, picture: any){
 
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
+    return new Promise((resolve, reject)=>{
+      this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 
-      this.storageService.uploadPicture(username, picture).then(url=>{
-        res.user.updateProfile({
-          displayName: username,
-          photoURL: url + ""
-        });
-      });
-      
-    }).catch(err=>{
-      console.log(err);
+        /* this.storageService.uploadPicture(username, picture).then(url=>{ */
+          res.user.updateProfile({
+            displayName: username,
+            photoURL: /* url + */ ""
+          });
+        /* }); */
+
+        resolve();
+        
+      }).catch(err=>{
+        console.log(err)
+        resolve(err)
+      })
     })
     
   }
