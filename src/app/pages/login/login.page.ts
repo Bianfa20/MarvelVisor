@@ -21,8 +21,7 @@ export class LoginPage implements OnInit {
     this.authService.login(this.email, this.password).then(res=>{
       this.menuCtrl.enable(true);
       this.navCtrl.navigateRoot("/home");
-    })
-    
+    })    
   }
 
   toLogup(){

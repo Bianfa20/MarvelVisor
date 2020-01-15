@@ -16,9 +16,16 @@ export class HomePage {
 
   constructor( private comicsService: ComicsService) {
 
-    this.availableComics = this.comicsService.loadComics(1);
-    this.interval = this.countIntervals(this.comicsService.getnComics());
+    this.interval = 0;
 
+    this.comicsService.loadComics().then(res=>{
+      if(res){
+        this.availableComics = this.comicsService.getComics(1);
+        this.interval = this.countIntervals(this.comicsService.getnComics());
+      }else{
+        this.interval = -1;
+      }
+    })
   }
 
   createLink(path, extension){
@@ -26,7 +33,7 @@ export class HomePage {
   }
 
   loadMoreComics(ev: any){
-    this.availableComics = this.comicsService.loadComics(ev['detail'].value);
+    this.availableComics = this.comicsService.getComics(ev['detail'].value);
     this.content.scrollToTop();
   }
 
@@ -39,7 +46,7 @@ export class HomePage {
   }
 
   counter(){
-    return Array(this.interval - 1);
+    return this.interval > 0 ? Array(this.interval - 1) : [];
   }
 
   like(comic){
