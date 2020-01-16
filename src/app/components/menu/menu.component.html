@@ -2,7 +2,7 @@
   <ion-header>
     <ion-toolbar color="primary">
       <ion-grid>
-        <ion-row class="ion-margin-start">
+        <ion-row class="ion-margin-start ion-margin-top">
           <ion-col>
             <ion-avatar>
               <img [src]="authService.user.photoURL">
@@ -24,14 +24,14 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>
-      <ion-item>Menu Item</ion-item>      
+      <ion-item>Opción 1</ion-item>
+      <ion-item>Opción 2</ion-item>
+      <ion-item>Opción 3</ion-item>      
     </ion-list>
     
     <div class="ion-text-center ion-margin-top">
       <ion-button shape="round" (click)="logout()">Cerrar sesion</ion-button>
-      <ion-button shape="round" color="danger">Eliminar cuenta</ion-button>
+      <ion-button shape="round" color="danger" (click)="deleteUser()">Eliminar cuenta</ion-button>
     </div>
 
   </ion-content>

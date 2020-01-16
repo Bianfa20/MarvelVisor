@@ -15,6 +15,10 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
+//Plugins
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { IonicStorageModule } from '@ionic/storage';
+
 //Providers
 import { ComicsService } from './providers/comics/comics.service';
 import { AuthService } from './providers/auth/auth.service';
@@ -23,12 +27,15 @@ import { StorageService } from './providers/storage/storage.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ComponentsModule, HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
+  imports: [ComponentsModule, IonicStorageModule.forRoot({
+    name: 'reactions_marvel_visor'
+  }), HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
   providers: [
     AuthService,
     StorageService,
     ComicsService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    GooglePlus,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],
   bootstrap: [AppComponent]
 })

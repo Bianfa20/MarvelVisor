@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'logup',
     loadChildren: () => import('./pages/logup/logup.module').then( m => m.LogupPageModule)
   },
+  {
+    path: 'comic-details',
+    loadChildren: () => import('./pages/comic-details/comic-details.module').then( m => m.ComicDetailsPageModule)
+  },
 ];
 
 @NgModule({

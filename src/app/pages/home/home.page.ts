@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComicsService } from '../../providers/comics/comics.service';
 import { IonContent } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,7 @@ export class HomePage {
   availableComics: Array<JSON>;
   interval: number;
 
-  constructor( private comicsService: ComicsService) {
+  constructor( private navCtrl: NavController, private comicsService: ComicsService, private storage: Storage ) {
 
     this.interval = 0;
 
@@ -51,14 +53,28 @@ export class HomePage {
 
   like(comic){
     if(typeof comic == 'object'){
-      comic.like == 0 ? comic.like = 1 : comic.like = 0;
+      if(comic.like == 0 || comic.like == 2){
+        comic.like = 1;
+      }else{
+        comic.like = 0;
+      }
+      this.storage.set(comic.id + "", comic.like + "");
     }    
   }
 
   dislike(comic){
     if(typeof comic == 'object'){
-      comic.like == 0 ? comic.like = 2 : comic.like = 0;
+      if(comic.like == 0 || comic.like == 1){
+        comic.like = 2;
+      }else{
+        comic.like = 0;
+      }
+      this.storage.set(comic.id + "", comic.like + "");
     }    
+  }
+
+  showDetail(){
+    this.navCtrl.navigateForward('comic-details');
   }
 
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
+import * as firebase from 'firebase/app';
 import { StorageService } from '../storage/storage.service';
-import { Plugins } from '@capacitor/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,13 @@ export class AuthService {
 
   user: any;
 
-  constructor( private afAuth: AngularFireAuth, private storageService: StorageService ) { 
+  constructor( private afAuth: AngularFireAuth, private storageService: StorageService, private googlePlus: GooglePlus ) { 
 
     this.initUser();
+
+    this.afAuth.authState.subscribe(res=>{
+      res ? this.user = res : this.initUser();
+    })
 
   }
 
@@ -35,10 +40,16 @@ export class AuthService {
     })
   }
 
-  async loginWithGoogle(){
-    let googleUser = await Plugins.GoogleAuth.signIn();
-    this.afAuth.auth.signInWithCredential(googleUser.authentication.idToken).then(ref=>{
-      this.user = ref.user;
+  loginWithGoogle(){
+    return new Promise((resolve, reject)=>{
+      this.googlePlus.login({
+        'webClientId': '870418845580-fngrrbnimgcti7cs2gvi1sfljc6oconp.apps.googleusercontent.com',
+        'offline': true
+      }).then(res=>{
+        this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken));
+        this.user = res.user;
+        resolve();
+      }).catch(err=>console.log(err));
     })
   }
 
@@ -67,6 +78,10 @@ export class AuthService {
       })
     })
     
+  }
+
+  deleteUser(){
+    return this.afAuth.auth.currentUser.delete();
   }
 
 }

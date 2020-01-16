@@ -57,8 +57,13 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle(){
-    this.authService.loginWithGoogle();
-    this.navCtrl.navigateRoot("/home");
+    this.authService.loginWithGoogle().then(res=>{
+      
+      this.menuCtrl.enable(true);
+      this.message = JSON.stringify(this.authService.user);
+      /* this.navCtrl.navigateRoot("/home"); */
+
+    })
   }
 
 }

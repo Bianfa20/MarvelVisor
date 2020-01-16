@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class ComicsService {
 
   comicsData: any;
 
-  constructor( private http: HttpClient ) {  }
+  constructor( private http: HttpClient, private storage: Storage ) {  }
 
   loadComics(){
     var url = "http://gateway.marvel.com/v1/public/comics?ts=1&apikey=b5dd158dd0e856443db7fb726fbc6bc9&hash=80182fcb24c6426319114b9e34eafed6";
@@ -17,10 +18,12 @@ export class ComicsService {
       this.http.get(url).subscribe(data=>{
         //data = {}
         try {
-          data['data']['results'].forEach(function(comic){
-            comic.like = 0;
-          });
           this.comicsData = data;
+          this.comicsData['data']['results'].forEach(comic =>{
+            this.storage.get(comic.id+"").then(reaction=>{
+              comic.like = reaction ? reaction : 0;
+            })                    
+          });          
           resolve(true);
         }catch {
           resolve(false);
