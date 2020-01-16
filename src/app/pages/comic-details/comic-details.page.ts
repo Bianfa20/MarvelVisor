@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-comic-details',
@@ -8,7 +9,20 @@ import { NavController } from '@ionic/angular';
 })
 export class ComicDetailsPage implements OnInit {
 
-  constructor( private navCtrl: NavController ) { }
+  comic: any;
+
+  constructor( private navCtrl: NavController, private storage: Storage ) { 
+
+    this.comic = {};
+
+    this.storage.get('comic').then(comic=>{
+      this.comic = comic ? JSON.parse(comic) : {};
+    })    
+  }
+
+  createLink(path, extension){
+    return `${path}.${extension}`;
+  }
 
   ngOnInit() {
   }

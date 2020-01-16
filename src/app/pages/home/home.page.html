@@ -27,8 +27,8 @@
             <ion-row>
                 <ion-col size="6" *ngFor="let comic of availableComics;">
                     <div class="ion-text-center">
-                        <ion-card (click)="showDetail()">
-                            <img [src]="createLink(comic.thumbnail.path, comic.thumbnail.extension)">
+                        <ion-card>
+                            <img [src]="createLink(comic.thumbnail.path, comic.thumbnail.extension)" (click)="showDetail(comic)">
                             <ion-row>
                                 <ion-col>
                                     <ion-button [color]="comic.like == 1 ? 'facebook' : 'primary'" (click)="like(comic)" size="small" (click)="like(comic.id)">
@@ -43,7 +43,7 @@
                             </ion-row>
                         </ion-card>
                         <ion-text color="dark">
-                            <p style="font-weight: 700;">{{ comic.title }}</p>
+                            <p style="font-weight: 700;">{{ comic.variantDescription ? comic.variantDescription : comic.title }}</p>
                         </ion-text>
                     </div>
                 </ion-col>

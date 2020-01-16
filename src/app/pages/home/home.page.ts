@@ -73,7 +73,8 @@ export class HomePage {
     }    
   }
 
-  showDetail(){
+  showDetail(comic){
+    this.storage.set('comic', JSON.stringify(comic))
     this.navCtrl.navigateForward('comic-details');
   }
 

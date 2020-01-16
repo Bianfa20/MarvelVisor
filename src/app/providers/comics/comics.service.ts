@@ -23,7 +23,7 @@ export class ComicsService {
             this.storage.get(comic.id+"").then(reaction=>{
               comic.like = reaction ? reaction : 0;
             })                    
-          });          
+          });
           resolve(true);
         }catch {
           resolve(false);
