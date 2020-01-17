@@ -31,7 +31,6 @@ export class AuthService {
     return new Promise((resolve, reject)=>{
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(res=>{
         this.user = res.user;
-        console.log(res.user)
         resolve({code: "loggedIn"});
       }).catch(err=>{
         resolve(err)
@@ -69,6 +68,7 @@ export class AuthService {
   }
 
   deleteUser(){
+    this.initUser();
     return this.afAuth.auth.currentUser.delete();
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http/'
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -9,12 +9,11 @@ export class ComicsService {
 
   comicsData: any;
 
-  constructor( private http: HttpClient, private storage: Storage ) {  }
+  constructor( public http: HttpClient, private storage: Storage ) {  }
 
   loadComics(){
-    var url = "http://gateway.marvel.com/v1/public/comics?ts=1&apikey=b5dd158dd0e856443db7fb726fbc6bc9&hash=80182fcb24c6426319114b9e34eafed6";
-
     return new Promise((resolve, reject)=>{
+      var url = "http://gateway.marvel.com/v1/public/comics?ts=1&apikey=b5dd158dd0e856443db7fb726fbc6bc9&hash=80182fcb24c6426319114b9e34eafed6";
       this.http.get(url).subscribe(data=>{
         //data = {}
         try {

@@ -23,6 +23,7 @@
     "@capacitor/android": "^1.4.0",
     "@capacitor/core": "1.4.0",
     "@ionic-native/core": "^5.19.1",
+    "@ionic-native/http": "^5.19.1",
     "@ionic/angular": "^4.11.8",
     "@ionic/pwa-elements": "^1.4.1",
     "@ionic/storage": "^2.2.0",

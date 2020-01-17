@@ -26,9 +26,9 @@ import { StorageService } from './providers/storage/storage.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ComponentsModule, IonicStorageModule.forRoot({
+  imports: [ComponentsModule, HttpClientModule, IonicStorageModule.forRoot({
     name: 'reactions_marvel_visor'
-  }), HttpClientModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
+  }), BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
   providers: [
     AuthService,
     StorageService,
