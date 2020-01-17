@@ -1,32 +1,15 @@
 <ion-menu side="end" menuId="mainMenu" contentId="mainContent">
   <ion-header>
     <ion-toolbar color="primary">
-      <ion-grid>
-        <ion-row class="ion-margin-start ion-margin-top">
-          <ion-col>
-            <ion-avatar>
-              <img [src]="authService.user.photoURL">
-            </ion-avatar>           
-          </ion-col >
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-title class="ion-text-start">{{ authService.user.displayName }}</ion-title>
-          </ion-col>
-        </ion-row>
-        <ion-row class="ion-margin-start">
-          <ion-col>
-            <ion-text>{{ authService.user.email }}</ion-text>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-avatar class="ion-margin-start">
+        <ion-img [src]="authService.user.photoURL"></ion-img>
+      </ion-avatar>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item>Opción 1</ion-item>
-      <ion-item>Opción 2</ion-item>
-      <ion-item>Opción 3</ion-item>      
+      <ion-item>{{ authService.user.displayName }}</ion-item>
+      <ion-item>{{ authService.user.email }}</ion-item>    
     </ion-list>
     
     <div class="ion-text-center ion-margin-top">

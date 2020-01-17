@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +13,22 @@ export class StorageService {
     return new Promise((resolve, reject)=>{
 
       var ref = this.afStorage.ref(`profiles/${username}${new Date().valueOf().toString()}.jpg`);
-      var uploadTask = ref.putString(picture, 'data_url', { contentType: 'image/jpeg' }).then(snapshot=>{
-        resolve(snapshot.ref.getDownloadURL());
-      });
+      
+      var uploadTask = ref.putString(picture, 'base64', { contentType: 'image/jpeg' });
 
-      /* task.percentageChanges();
+      uploadTask.task.on('state_changed',
+        ()=>{},  //Know % of load
+        ()=>{},  //Errors
+        ()=>{    //Successfully
 
-      task.snapshotChanges().pipe(
-        finalize(() => {
-          resolve(ref.getDownloadURL())
-        })
-      ).subscribe() */      
+          uploadTask.task.snapshot.ref.getDownloadURL().then(url=>{
+            resolve(url);
+          })
+
+        } 
+      )
+
+      //task.percentageChanges();   
 
     });
 

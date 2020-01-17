@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Plugins, CameraResultType, CameraSource, CameraDirection } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../../providers/auth/auth.service';
+import { StorageService } from '../../providers/storage/storage.service';
 const { Toast } = Plugins;
 
 @Component({
@@ -13,17 +14,18 @@ const { Toast } = Plugins;
 export class LogupPage implements OnInit {
 
   stateOne: number;
-  photo: SafeResourceUrl;
-  userName: string;
+  picture: string;
+  picture64: string;
+  username: string;
   email: string;
   password: string;
   passwordC: string;
   message: string;
   loader: boolean;
 
-  constructor( private navCtrl: NavController, private sanitizer: DomSanitizer, private authService: AuthService ) { 
+  constructor( private navCtrl: NavController, private sanitizer: DomSanitizer, private authService: AuthService, private storageService: StorageService ) { 
     this.stateOne = 0;
-    this.userName, this.email, this.password, this.passwordC = "";
+    this.username, this.email, this.password, this.passwordC = "";
   }
 
   ngOnInit() {
@@ -44,30 +46,30 @@ export class LogupPage implements OnInit {
   async takePicture(flag) {
 
     this.loader = true;
-
-    var image = await Plugins.Camera.getPhoto({
+    
+    await Plugins.Camera.getPhoto({
       quality: 100,
       allowEditing: false,
-      resultType: CameraResultType.DataUrl,
+      resultType: CameraResultType.Base64,
       direction: CameraDirection.Front,
-      source: flag ? CameraSource.Camera : CameraSource.Photos
+      source: flag ? CameraSource.Camera : CameraSource.Photos,
+      correctOrientation: true
+    }).then(image=>{      
+      this.picture = 'data:image/jpeg;base64,'+image.base64String;
+      this.picture64 = image.base64String;
+      this.loader = false;
+      this.upperState();
     });
-
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
-
-    this.loader = false;
-
-    this.upperState();
 
   }
 
   saveData() {
-    if(this.userName != "" && this.email != "" && this.password != "" && this.passwordC != ""){
+    if(this.username != "" && this.email != "" && this.password != "" && this.passwordC != ""){
       if(this.password.length > 5){
         if(this.password == this.passwordC){
           if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.email)){
             this.upperState();
-            this.photo ? this.upperState() : 1;
+            this.picture ? this.upperState() : 1;
             this.message = "Datos guardado."
           }else{
             this.message = "Correo invalido."
@@ -85,17 +87,36 @@ export class LogupPage implements OnInit {
 
   createUser() {
     this.loader = true;
-    this.authService.createUser(this.userName, this.email, this.password, this.photo).then(res=>{
-      this.loader = false;
-      if(res["code"]==""){
-        this.showToast("Registrado exitosamente")
-        this.navCtrl.navigateBack("/login");
-      }else if(res["code"]=="auth/email-already-in-use"){
-        this.stateOne = 0;
-        this.message = "Este correo ya esta en uso."
-      }else {
-        this.showToast("No se pudo registrar")
-        this.navCtrl.navigateBack("/login");
+    this.authService.createUser(this.username, this.email, this.password).then(res=>{
+      switch(res["code"]){
+
+        case "":
+          this.storageService.uploadPicture(this.username, this.picture64).then(url=>{
+            this.loader = false;
+            if(url){
+              this.authService.linkPicture(url+"");
+              this.showToast("Registrado exitosamente")
+            }else{
+              this.authService.deleteUser();
+              this.showToast("No se pude registrar")
+            }
+            this.navCtrl.navigateBack("/login");
+          });          
+          break;
+
+        case "auth/email-already-in-use":
+          this.loader = false;
+          this.stateOne = 0;
+          this.message = "Este correo ya esta en uso."
+          break;
+
+        default:
+          this.loader = false;
+          this.authService.deleteUser();
+          this.showToast("No se pudo registrar")
+          this.navCtrl.navigateBack("/login");
+          break;
+
       }
     })    
   }

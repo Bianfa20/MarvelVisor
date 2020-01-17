@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from 'firebase/app';
-import { StorageService } from '../storage/storage.service';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +9,7 @@ export class AuthService {
 
   user: any;
 
-  constructor( private afAuth: AngularFireAuth, private storageService: StorageService, private googlePlus: GooglePlus ) { 
+  constructor( private afAuth: AngularFireAuth ) { 
 
     this.initUser();
 
@@ -33,23 +31,11 @@ export class AuthService {
     return new Promise((resolve, reject)=>{
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(res=>{
         this.user = res.user;
+        console.log(res.user)
         resolve({code: "loggedIn"});
       }).catch(err=>{
         resolve(err)
       })
-    })
-  }
-
-  loginWithGoogle(){
-    return new Promise((resolve, reject)=>{
-      this.googlePlus.login({
-        'webClientId': '870418845580-fngrrbnimgcti7cs2gvi1sfljc6oconp.apps.googleusercontent.com',
-        'offline': true
-      }).then(res=>{
-        this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken));
-        this.user = res.user;
-        resolve();
-      }).catch(err=>console.log(err));
     })
   }
 
@@ -58,29 +44,28 @@ export class AuthService {
     this.initUser();
   }
 
-  createUser(username: string, email: string, password: string, picture: any){
+  createUser(username: string, email: string, password: string){
 
     return new Promise((resolve, reject)=>{
       this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res=>{
 
         res.user.updateProfile({
           displayName: username
+        }).then(()=>{
+          resolve({code: ""});
         });
-
-        this.storageService.uploadPicture(username, picture).then(url=>{
-          res.user.updateProfile({
-            photoURL: url + ""
-          });
-        });
-
-        resolve({code: ""});
         
       }).catch(err=>{
-        console.log(err)
         resolve(err)
       })
     })
     
+  }
+
+  linkPicture(url: string){
+    this.afAuth.auth.currentUser.updateProfile({
+      photoURL: url
+    })
   }
 
   deleteUser(){

@@ -1,5 +1,10 @@
 ion-header {
     ion-toolbar {
         height: 25vh;
+        ion-avatar {
+            width: 30%;
+            height: 5.5em;
+            margin-top: 10%;
+        }
     }
 }

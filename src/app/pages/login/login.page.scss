@@ -18,9 +18,6 @@ ion-content {
         text-decoration: underline;
         color: #fff;
     }
-    #warning {
-        background: #ccc;
-    }
     .saver {
         position: absolute;
         top: 0;
@@ -32,8 +29,9 @@ ion-content {
     #loader {
         position: absolute;
         top: 35%;
-        left: 30%;
+        left: 28%;
         width: 160px;
+        margin: 0 auto;
         background: #fff;
         img {
             width: 70%;
