@@ -48,7 +48,7 @@ export class LogupPage implements OnInit {
     this.loader = true;
     
     await Plugins.Camera.getPhoto({
-      quality: 100,
+      quality: 60,
       allowEditing: false,
       resultType: CameraResultType.Base64,
       direction: CameraDirection.Front,

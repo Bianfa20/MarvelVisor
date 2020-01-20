@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from 'firebase/app';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,22 @@ export class AuthService {
 
   user: any;
 
-  constructor( private afAuth: AngularFireAuth ) { 
+  constructor( private afAuth: AngularFireAuth, private storage: Storage ) { 
 
     this.initUser();
 
+    this.storage.get('user').then(user=>{
+      user ? this.user = JSON.parse(user) : false;
+    });
+  
     this.afAuth.authState.subscribe(res=>{
-      res ? this.user = res : this.initUser();
+      if(res){
+        this.user = res;
+        this.storage.set('user', JSON.stringify(this.afAuth.auth.currentUser));
+      }else{
+        this.initUser();
+        this.storage.remove('user');
+      }
     })
 
   }
@@ -30,7 +41,6 @@ export class AuthService {
   login(email: string, password: string){
     return new Promise((resolve, reject)=>{
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(res=>{
-        this.user = res.user;
         resolve({code: "loggedIn"});
       }).catch(err=>{
         resolve(err)
@@ -39,6 +49,7 @@ export class AuthService {
   }
 
   logout(){
+    this.storage.clear();
     this.afAuth.auth.signOut();
     this.initUser();
   }
@@ -68,8 +79,8 @@ export class AuthService {
   }
 
   deleteUser(){
-    this.initUser();
-    return this.afAuth.auth.currentUser.delete();
+    this.storage.clear();
+    return this.user.delete();
   }
 
 }
