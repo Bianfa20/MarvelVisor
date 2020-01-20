@@ -13,8 +13,10 @@ export class LoginGuard implements CanActivate {
 
   async canActivate(){
     const user = await this.storage.get('user');
-    if(user){
+    const registering = await this.storage.get('registering');
+    if(user && !registering){
       this.router.navigateByUrl('/home');
+      this.storage.remove('registering');
     }else{
       return true;
     }

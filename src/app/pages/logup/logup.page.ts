@@ -4,6 +4,7 @@ import { Plugins, CameraResultType, CameraSource, CameraDirection } from '@capac
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AuthService } from '../../providers/auth/auth.service';
 import { StorageService } from '../../providers/storage/storage.service';
+import { Storage } from '@ionic/storage';
 const { Toast } = Plugins;
 
 @Component({
@@ -23,7 +24,7 @@ export class LogupPage implements OnInit {
   message: string;
   loader: boolean;
 
-  constructor( private navCtrl: NavController, private sanitizer: DomSanitizer, private authService: AuthService, private storageService: StorageService ) { 
+  constructor( private navCtrl: NavController, private storage: Storage, private sanitizer: DomSanitizer, private authService: AuthService, private storageService: StorageService ) { 
     this.stateOne = 0;
     this.username, this.email, this.password, this.passwordC = "";
   }
@@ -91,6 +92,7 @@ export class LogupPage implements OnInit {
       switch(res["code"]){
 
         case "":
+          this.storage.set('registering', true);
           this.storageService.uploadPicture(this.username, this.picture64).then(url=>{
             this.loader = false;
             if(url){
@@ -99,7 +101,7 @@ export class LogupPage implements OnInit {
             }else{
               this.authService.deleteUser();
               this.showToast("No se pude registrar")
-            }
+            }            
             this.navCtrl.navigateBack("/login");
           });          
           break;
