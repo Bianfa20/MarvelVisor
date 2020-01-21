@@ -14,7 +14,7 @@
     
     <div class="ion-text-center ion-margin-top">
       <ion-button shape="round" (click)="logout()">Cerrar sesion</ion-button>
-      <ion-button shape="round" color="danger" (click)="deleteUser()">Eliminar cuenta</ion-button>
+      <ion-button shape="round" color="danger" (click)="deleteUser()" *ngIf="authService.ownUser">Eliminar cuenta</ion-button>
     </div>
 
   </ion-content>

@@ -58,7 +58,12 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle(){
-    this.showToast('Aun no funciona');
+    this.authService.loginWithGoogle().then(res=>{
+      if(res){
+        this.menuCtrl.enable(true);
+        this.navCtrl.navigateRoot('/home');
+      }
+    });
   }
 
   async showToast(message: string) {

@@ -21,7 +21,8 @@ export class MenuComponent implements OnInit {
       this.menuCtrl.enable(false).then(()=>{
         this.authService.logout();
         this.clearDataBase();
-        this.navCtrl.navigateRoot("/login");        
+        this.navCtrl.navigateRoot("/login");   
+        this.showToast("Sesión cerrada exitosamente")     
       })
     })
   }

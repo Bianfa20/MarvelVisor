@@ -7,13 +7,13 @@ export const environment = {
 };
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyDiPPV5h0EwoXPO8yf9Zngdjxnxv8U4K_k",
-  authDomain: "marvelvisor.firebaseapp.com",
-  databaseURL: "https://marvelvisor.firebaseio.com",
-  projectId: "marvelvisor",
-  storageBucket: "marvelvisor.appspot.com",
-  messagingSenderId: "870418845580",
-  appId: "1:870418845580:web:5d66769d1d367fb4c1d0a9"
+  apiKey: "AIzaSyBF0ForJ2V4NxK4eCXmFYmBTewFGfCTVuc",
+  authDomain: "marvelvisor-4ecd9.firebaseapp.com",
+  databaseURL: "https://marvelvisor-4ecd9.firebaseio.com",
+  projectId: "marvelvisor-4ecd9",
+  storageBucket: "marvelvisor-4ecd9.appspot.com",
+  messagingSenderId: "204426299781",
+  appId: "1:204426299781:web:293405f45fc78d5ad55cec"
 };
 
 /*

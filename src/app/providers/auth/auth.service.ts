@@ -2,15 +2,20 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from 'firebase/app';
 import { Storage } from '@ionic/storage';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  ownUser: boolean;
   user: any;
 
-  constructor( private afAuth: AngularFireAuth, private storage: Storage ) { 
+  constructor( private platform: Platform, private googlePlus: GooglePlus, private afAuth: AngularFireAuth, private storage: Storage ) { 
+
+    this.ownUser = true;
 
     this.initUser();
 
@@ -40,12 +45,35 @@ export class AuthService {
 
   login(email: string, password: string){
     return new Promise((resolve, reject)=>{
+      this.ownUser = true;
       this.afAuth.auth.signInWithEmailAndPassword(email, password).then(res=>{
         resolve({code: "loggedIn"});
       }).catch(err=>{
         resolve(err)
       })
     })
+  }
+
+  loginWithGoogle(){    
+    return new Promise((resolve, reject)=>{
+      this.ownUser = false;
+      if(this.platform.is('capacitor')){
+        this.googlePlus.login({
+          'webClientId': '204426299781-e6inuu1lp1mr4kfsjndcf56pe8cri2sr.apps.googleusercontent.com',
+          'offline': true
+        })
+        .then(res => {
+          this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken)).then(res2=>{
+            resolve(true);
+          })
+        })
+        .catch(err => console.error(err));
+      }else{
+        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res=>{
+          resolve(true);
+        }).catch(err=>console.log(err));
+      }
+    });
   }
 
   logout(){

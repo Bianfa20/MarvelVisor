@@ -17,6 +17,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 //Plugins
 import { IonicStorageModule } from '@ionic/storage';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 //Providers
 import { ComicsService } from './providers/comics/comics.service';
@@ -33,6 +34,7 @@ import { StorageService } from './providers/storage/storage.service';
     AuthService,
     StorageService,
     ComicsService,
+    GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],
   bootstrap: [AppComponent]
