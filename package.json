@@ -23,11 +23,13 @@
     "@capacitor/android": "^1.4.0",
     "@capacitor/core": "1.4.0",
     "@ionic-native/core": "^5.19.1",
+    "@ionic-native/facebook": "^5.19.1",
     "@ionic-native/google-plus": "^5.19.1",
     "@ionic-native/http": "^5.19.1",
     "@ionic/angular": "^4.11.8",
     "@ionic/pwa-elements": "^1.4.1",
     "@ionic/storage": "^2.2.0",
+    "cordova-plugin-facebook4": "^6.2.0",
     "cordova-plugin-googleplus": "^8.2.1",
     "cordova-sqlite-storage": "^4.0.0",
     "core-js": "^2.5.4",
@@ -69,6 +71,10 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.204426299781-jogfa5fh6n2ptonqlilrhnjqsc4n5lfj"
+      },
+      "cordova-plugin-facebook4": {
+        "APP_ID": "801087540403844",
+        "APP_NAME": "MarvelVisor"
       }
     }
   }

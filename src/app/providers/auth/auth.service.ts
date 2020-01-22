@@ -3,6 +3,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { Platform } from '@ionic/angular';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class AuthService {
   ownUser: boolean;
   user: any;
 
-  constructor( private platform: Platform, private googlePlus: GooglePlus, private afAuth: AngularFireAuth, private storage: Storage ) { 
+  constructor( private platform: Platform, private fb: Facebook, private googlePlus: GooglePlus, private afAuth: AngularFireAuth, private storage: Storage ) { 
 
     this.ownUser = true;
 
@@ -72,6 +73,30 @@ export class AuthService {
         this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res=>{
           resolve(true);
         }).catch(err=>console.log(err));
+      }
+    });
+  }
+
+  loginWithFacebook(){
+    return new Promise((resolve, reject)=>{
+      this.ownUser = false;
+      if(this.platform.is('capacitor')){
+
+        this.fb.login(['public_profile', 'email']).then((res: FacebookLoginResponse)=>{
+          const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          this.afAuth.auth.signInWithCredential(facebookCredential).then(res2=>{
+            resolve(true)
+          });
+        }).catch(e =>{
+          console.log(JSON.stringify(e));
+          resolve(false);
+        });
+
+      }else{
+        this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res=>{
+          console.log(res.user)
+          resolve(true);
+        })
       }
     });
   }

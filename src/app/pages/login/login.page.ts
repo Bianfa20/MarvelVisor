@@ -66,6 +66,15 @@ export class LoginPage implements OnInit {
     });
   }
 
+  loginWithFacebook(){
+    this.authService.loginWithFacebook().then(res=>{
+      if(res){
+        this.menuCtrl.enable(true);
+        this.navCtrl.navigateRoot('/home');
+      }
+    });
+  }
+
   async showToast(message: string) {
     await Toast.show({
       text: message
