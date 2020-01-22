@@ -31,11 +31,13 @@
                             <img [src]="createLink(comic.thumbnail.path, comic.thumbnail.extension)" (click)="showDetail(comic)">
                             <ion-row>
                                 <ion-col>
+                                    <ion-text color="dark" class="counter">{{ comic.likes != null ? comic.likes : 0 }}</ion-text><br/>
                                     <ion-button [color]="comic.like == 1 ? 'facebook' : 'primary'" (click)="like(comic)" size="small" (click)="like(comic.id)">
                                         <ion-icon name="thumbs-up"></ion-icon>
                                     </ion-button>
                                 </ion-col>
                                 <ion-col>
+                                    <ion-text color="dark" class="counter">{{ comic.dislikes != null ? comic.dislikes : 0 }}</ion-text><br/>
                                     <ion-button [color]="comic.like == 2 ? 'danger' : 'primary'" (click)="dislike(comic)" size="small" (click)="dislike(comic.title)">
                                         <ion-icon name="thumbs-down"></ion-icon>
                                     </ion-button>
@@ -68,6 +70,12 @@
         <ion-img id="comicsLoader" src="../../../assets/loader.gif" alt=""></ion-img>
         <ion-text>Cargando</ion-text>
     </div>
+
+    <div *ngIf="interval == -1" class="astronautContain ion-text-center">
+        <ion-img id="noComics" src="../../../assets/astronaut.gif"></ion-img>
+        <ion-text color="light"><h5>No se pudo cargar los comics</h5></ion-text>
+    </div>
+
 </ion-content>
 
 

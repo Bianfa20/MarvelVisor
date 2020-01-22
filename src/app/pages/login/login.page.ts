@@ -58,19 +58,27 @@ export class LoginPage implements OnInit {
   }
 
   loginWithGoogle(){
+    this.loguedIn = true;
     this.authService.loginWithGoogle().then(res=>{
+      this.loguedIn = false;
       if(res){
         this.menuCtrl.enable(true);
         this.navCtrl.navigateRoot('/home');
+      }else{
+        this.showToast("No se pudo ingresar con Google")
       }
     });
   }
 
   loginWithFacebook(){
+    this.loguedIn = true;
     this.authService.loginWithFacebook().then(res=>{
+      this.loguedIn = false;
       if(res){
         this.menuCtrl.enable(true);
         this.navCtrl.navigateRoot('/home');
+      }else{
+        this.showToast("No se pudo ingresar con Google")
       }
     });
   }

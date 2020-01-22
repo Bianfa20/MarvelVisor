@@ -13,6 +13,7 @@ import { ComponentsModule } from './components/components.module';
 import { firebaseConfig } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 //Plugins
@@ -29,8 +30,8 @@ import { StorageService } from './providers/storage/storage.service';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [ComponentsModule, HttpClientModule, IonicStorageModule.forRoot({
-    name: 'reactions_marvel_visor'
-  }), BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule],
+    name: 'marvel_visor'
+  }), BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireAuthModule, AngularFireStorageModule, AngularFireDatabaseModule],
   providers: [
     AuthService,
     StorageService,

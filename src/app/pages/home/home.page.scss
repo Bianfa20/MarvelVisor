@@ -10,4 +10,15 @@ ion-content {
         margin: 0 auto;
         margin-top: 50%;
     }
+    .astronautContain{
+        background: #0b1b2b;
+        height: 100%;
+        width: 100%;
+        #noComics {
+            padding-top: 10%;
+        }
+    }
+    .counter{
+        font-weight: bold;
+    }    
 }

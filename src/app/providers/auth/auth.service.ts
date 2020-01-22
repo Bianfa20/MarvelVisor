@@ -16,9 +16,12 @@ export class AuthService {
 
   constructor( private platform: Platform, private fb: Facebook, private googlePlus: GooglePlus, private afAuth: AngularFireAuth, private storage: Storage ) { 
 
-    this.ownUser = true;
-
+    this.ownUser = false;
     this.initUser();
+
+    this.storage.get('ownUser').then(res=>{
+      res ? this.ownUser = res : false;
+    })
 
     this.storage.get('user').then(user=>{
       user ? this.user = JSON.parse(user) : false;
@@ -28,9 +31,11 @@ export class AuthService {
       if(res){
         this.user = res;
         this.storage.set('user', JSON.stringify(this.afAuth.auth.currentUser));
+        this.storage.set('ownUser', this.ownUser);
       }else{
         this.initUser();
         this.storage.remove('user');
+        this.storage.remove('ownUser');
       }
     })
 

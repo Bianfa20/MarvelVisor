@@ -22,6 +22,7 @@ export class HomePage {
 
     this.comicsService.loadComics().then(res=>{
       if(res){
+        console.log(this.comicsService.comicsData['data']['results'].filter(comic=>comic['id']==1689))
         this.availableComics = this.comicsService.getComics(1);
         this.interval = this.countIntervals(this.comicsService.getnComics());
       }else{
@@ -54,9 +55,14 @@ export class HomePage {
   like(comic){
     if(typeof comic == 'object'){
       if(comic.like == 0 || comic.like == 2){
-        comic.like = 1;
+        if(comic.like == 2){
+          this.comicsService.removeReaction(comic.id, 0);
+        }           
+        comic.like = 1;  
+        this.comicsService.saveReaction(comic.id, comic.like);   
       }else{
         comic.like = 0;
+        this.comicsService.removeReaction(comic.id, 1);
       }
       this.storage.set(comic.id + "", comic.like + "");
     }    
@@ -64,10 +70,15 @@ export class HomePage {
 
   dislike(comic){
     if(typeof comic == 'object'){
-      if(comic.like == 0 || comic.like == 1){
+      if(comic.like == 0 || comic.like == 1){        
+        if(comic.like == 1){
+          this.comicsService.removeReaction(comic.id, 1);
+        }
         comic.like = 2;
+        this.comicsService.saveReaction(comic.id, comic.like);
       }else{
         comic.like = 0;
+        this.comicsService.removeReaction(comic.id, 0);
       }
       this.storage.set(comic.id + "", comic.like + "");
     }    
