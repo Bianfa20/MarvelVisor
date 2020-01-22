@@ -27,14 +27,6 @@ export class ComicsService {
                   comic.like = reaction ? reaction : 0;
                 })
 
-                this.afDB.database.ref(`reactions/${comic.id}/likes`).on('value', snapshot=>{
-                  comic.likes = snapshot.val();
-                })
-
-                this.afDB.database.ref(`reactions/${comic.id}/dislikes`).on('value', snapshot=>{
-                  comic.dislikes = snapshot.val();
-                })
-
               });              
 
               resolve(true);

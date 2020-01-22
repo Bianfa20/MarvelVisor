@@ -3,6 +3,8 @@ import { ComicsService } from '../../providers/comics/comics.service';
 import { IonContent } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +18,25 @@ export class HomePage {
   availableComics: Array<JSON>;
   interval: number;
 
-  constructor( private navCtrl: NavController, private comicsService: ComicsService, private storage: Storage ) {
+  constructor( private navCtrl: NavController, private afDB: AngularFireDatabase, private comicsService: ComicsService, private storage: Storage ) {
 
     this.interval = 0;
 
     this.comicsService.loadComics().then(res=>{
       if(res){
-        console.log(this.comicsService.comicsData['data']['results'].filter(comic=>comic['id']==1689))
         this.availableComics = this.comicsService.getComics(1);
         this.interval = this.countIntervals(this.comicsService.getnComics());
+        
+        this.availableComics.forEach(comic=>{
+          this.afDB.object(`reactions/${comic.id}/likes`).valueChanges().subscribe(likes=>{
+            likes != null ? comic.likes = likes : comic.likes = 0;
+          })
+          this.afDB.object(`reactions/${comic.id}/dislikes`).valueChanges().subscribe(dislikes=>{
+            dislikes != null ? comic.dislikes = dislikes : comic.dislikes = 0;
+          })
+        })
+    
+        this.afDB.database.ref(`reactions/1689`)
       }else{
         this.interval = -1;
       }
@@ -37,6 +49,14 @@ export class HomePage {
 
   loadMoreComics(ev: any){
     this.availableComics = this.comicsService.getComics(ev['detail'].value);
+    this.availableComics.forEach(comic=>{
+      this.afDB.object(`reactions/${comic.id}/likes`).valueChanges().subscribe(likes=>{
+        likes != null ? comic.likes = likes : comic.likes = 0;
+      })
+      this.afDB.object(`reactions/${comic.id}/dislikes`).valueChanges().subscribe(dislikes=>{
+        dislikes != null ? comic.dislikes = dislikes : comic.dislikes = 0;
+      })
+    })
     this.content.scrollToTop();
   }
 
