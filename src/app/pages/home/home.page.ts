@@ -28,15 +28,13 @@ export class HomePage {
         this.interval = this.countIntervals(this.comicsService.getnComics());
         
         this.availableComics.forEach(comic=>{
-          this.afDB.object(`reactions/${comic.id}/likes`).valueChanges().subscribe(likes=>{
-            likes != null ? comic.likes = likes : comic.likes = 0;
+          this.afDB.object(`reactions/${comic['id']}/likes`).valueChanges().subscribe(likes=>{
+            likes != null ? comic['likes'] = likes : comic['likes'] = 0;
           })
-          this.afDB.object(`reactions/${comic.id}/dislikes`).valueChanges().subscribe(dislikes=>{
-            dislikes != null ? comic.dislikes = dislikes : comic.dislikes = 0;
+          this.afDB.object(`reactions/${comic['id']}/dislikes`).valueChanges().subscribe(dislikes=>{
+            dislikes != null ? comic['dislikes'] = dislikes : comic['dislikes'] = 0;
           })
         })
-    
-        this.afDB.database.ref(`reactions/1689`)
       }else{
         this.interval = -1;
       }
@@ -50,11 +48,11 @@ export class HomePage {
   loadMoreComics(ev: any){
     this.availableComics = this.comicsService.getComics(ev['detail'].value);
     this.availableComics.forEach(comic=>{
-      this.afDB.object(`reactions/${comic.id}/likes`).valueChanges().subscribe(likes=>{
-        likes != null ? comic.likes = likes : comic.likes = 0;
+      this.afDB.object(`reactions/${comic['id']}/likes`).valueChanges().subscribe(likes=>{
+        likes != null ? comic['likes'] = likes : comic['likes'] = 0;
       })
-      this.afDB.object(`reactions/${comic.id}/dislikes`).valueChanges().subscribe(dislikes=>{
-        dislikes != null ? comic.dislikes = dislikes : comic.dislikes = 0;
+      this.afDB.object(`reactions/${comic['id']}/dislikes`).valueChanges().subscribe(dislikes=>{
+        dislikes != null ? comic['dislikes'] = dislikes : comic['dislikes'] = 0;
       })
     })
     this.content.scrollToTop();
