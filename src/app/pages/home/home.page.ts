@@ -5,6 +5,9 @@ import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+const { Network } = Plugins;
+
 
 @Component({
   selector: 'app-home',
@@ -22,23 +25,14 @@ export class HomePage {
 
     this.interval = 0;
 
-    this.comicsService.loadComics().then(res=>{
-      if(res){
-        this.availableComics = this.comicsService.getComics(1);
-        this.interval = this.countIntervals(this.comicsService.getnComics());
-        
-        this.availableComics.forEach(comic=>{
-          this.afDB.object(`reactions/${comic['id']}/likes`).valueChanges().subscribe(likes=>{
-            likes != null ? comic['likes'] = likes : comic['likes'] = 0;
-          })
-          this.afDB.object(`reactions/${comic['id']}/dislikes`).valueChanges().subscribe(dislikes=>{
-            dislikes != null ? comic['dislikes'] = dislikes : comic['dislikes'] = 0;
-          })
-        })
-      }else{
-        this.interval = -1;
-      }
+    Network.getStatus().then(status=>{
+      status.connected ? this.loadHome() : this.interval = -1;
     })
+
+    Network.addListener('networkStatusChange', status=>{
+      status.connected ? this.loadHome() : this.interval = -1;
+    });
+    
   }
 
   createLink(path, extension){
@@ -105,6 +99,33 @@ export class HomePage {
   showDetail(comic){
     this.storage.set('comic', JSON.stringify(comic))
     this.navCtrl.navigateForward('comic-details');
+  }
+
+  async loadHome(){
+    this.comicsService.loadComics().then(res=>{
+      if(res == 1){
+        this.availableComics = this.comicsService.getComics(1);
+        this.interval = this.countIntervals(this.comicsService.getnComics());
+        
+        this.availableComics.forEach(comic=>{
+          this.afDB.object(`reactions/${comic['id']}/likes`).valueChanges().subscribe(likes=>{
+            likes != null ? comic['likes'] = likes : comic['likes'] = 0;
+          })
+          this.afDB.object(`reactions/${comic['id']}/dislikes`).valueChanges().subscribe(dislikes=>{
+            dislikes != null ? comic['dislikes'] = dislikes : comic['dislikes'] = 0;
+          })
+        })
+        console.log(res)
+      }else if(res == 2){
+        this.interval = -1;
+        console.log("aqui")
+      }else{
+        this.interval = 0;
+        setTimeout(()=>{
+          this.loadHome()
+        }, 3000);
+      }
+    })
   }
 
 }

@@ -29,14 +29,16 @@ export class ComicsService {
 
               });              
 
-              resolve(true);
+              resolve(1);
             }catch(err){
-              resolve(false);
+              resolve(2);
             }
           })
         }else{
-          resolve(false);
+          resolve(2);
         }
+      }).catch(err=>{
+        resolve(3)
       });
     })
   }
